@@ -15,4 +15,6 @@ public interface CustomerServiceImpl {
     Customer updateCustomer(Customer customer);
 
     void deleteCustomerById(Long id);
+
+    List<Customer> findByKeyword(String keyword);
 }

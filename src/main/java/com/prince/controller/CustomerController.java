@@ -3,12 +3,12 @@ package com.prince.controller;
 import com.prince.entity.Customer;
 import com.prince.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -17,8 +17,12 @@ public class CustomerController {
 
     // handler method to handle list customers and return mode and view
     @GetMapping("/customers")
-    public String listCustomer(Model model) {
-        model.addAttribute("customers", customerService.getAllCustomer());
+    public String listCustomer(Model model, String keyword) {
+        if(keyword != null){
+            model.addAttribute("customers",customerService.findByKeyword(keyword));
+        }else{
+            model.addAttribute("customers", customerService.getAllCustomer());
+        }
         return "customers";
     }
 
@@ -72,4 +76,7 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
         return "redirect:/customers";
     }
+
+
+
 }

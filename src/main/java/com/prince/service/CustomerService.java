@@ -39,5 +39,15 @@ public class CustomerService  implements CustomerServiceImpl {
         customerRepository.deleteById(id);
     }
 
+    @Override
+    public List<Customer> findByKeyword(String keyword) {
+        if (keyword  != null) {
+            return customerRepository.findByKeyword(keyword);
+        }else
+
+            return (List<Customer>) customerRepository.findAll();
+    }
+
+
 }
 
